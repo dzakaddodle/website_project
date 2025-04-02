@@ -69,7 +69,7 @@ class StockMarket:
             "limit": limit
         }
 
-        listOfSearched = []
+        #listOfSearched = []
         url = f"https://financialmodelingprep.com/stable/company-screener?apikey={self.api_key}"
 
         response = requests.get(url, params=params)
@@ -78,18 +78,18 @@ class StockMarket:
         if not data:
             print("No results found")
 
-        for i, stock in enumerate(data):
-            listOfSearched.append(stock['symbol'])
-            print(f"Result: {i + 1}")
-            print(f"Symbol: {stock['symbol']}")
-            print(f"Name: {stock['companyName']}")
-            print(f"Market Cap: {stock['marketCap']}")
-            print(f"Sector: {stock['sector']}")
-            print(f"Price: {stock['price']}")
-            print(f"Volume: {stock['volume']}")
-            print(f"Exchange: {stock['exchange']}\n")
+        # for i, stock in enumerate(data):
+        #     listOfSearched.append(stock['symbol'])
+        #     print(f"Result: {i + 1}")
+        #     print(f"Symbol: {stock['symbol']}")
+        #     print(f"Name: {stock['companyName']}")
+        #     print(f"Market Cap: {stock['marketCap']}")
+        #     print(f"Sector: {stock['sector']}")
+        #     print(f"Price: {stock['price']}")
+        #     print(f"Volume: {stock['volume']}")
+        #     print(f"Exchange: {stock['exchange']}\n")
 
-        return listOfSearched
+        return data
 
     # get speicifc information on a stock
     def getStockInfo(self, ticker):
