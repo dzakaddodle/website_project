@@ -1,21 +1,33 @@
-{% extends 'navbar.html' %}
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
 
-{% block content %}
-    <!-- Show content if logged in -->
-    <h1>Welcome to Stock Buddies</h1>
-    <p>Stock Buddies is an easy-to-use stock managing app for anyone! Whether you're a beginner or an expert, Stock Buddies makes it simple to track, save, and analyze your stocks in a fun and interactive way!</p>
+    {% extends 'navbar.html' %}
 
-    <!-- About Us Section -->
-    <div class="description">
-        <h2>About Stock Buddies</h2>
+    {% block content %}
+        <!-- Show content if logged in -->
+        <h1>Welcome to Stock Buddies</h1>
         <p>Stock Buddies is an easy-to-use stock managing app for anyone! Whether you're a beginner or an expert, Stock Buddies makes it simple to track, save, and analyze your stocks in a fun and interactive way!</p>
-    </div>
-
-    <!-- Image Carousel -->
-    <div>
-        <img src="/static/image1.jpg" alt="Stock Image 1" height="200px" width="400px">
-        <img src="/static/image2.jpg" alt="Stock Image 2" height="200px" width="400px">
-        <img src="/static/image3.jpg" alt="Stock Image 3" height="200px" width="400px">
-    </div>
-
-{% endblock %}
+    
+        <!-- About Us Section -->
+        <div class="description">
+            <h2>About Stock Buddies</h2>
+            <p>Stock Buddies is an easy-to-use stock managing app for anyone! Whether you're a beginner or an expert, Stock Buddies makes it simple to track, save, and analyze your stocks in a fun and interactive way!</p>
+        </div>
+    
+        <!-- Image Carousel -->
+        <div>
+            <img src="/static/image1.jpg" alt="Stock Image 1" height="200px" width="400px">
+            <img src="/static/image2.jpg" alt="Stock Image 2" height="200px" width="400px">
+            <img src="/static/image3.jpg" alt="Stock Image 3" height="200px" width="400px">
+        </div>
+    
+    {% endblock %}          
+</body>
+</html>
