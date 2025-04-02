@@ -1,37 +1,47 @@
-{% extends 'navbar.html' %}
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    {% extends 'navbar.html' %}
 
-{% block content %}
-    <h2>Login to Stock Buddies</h2>
-    {% if error_message %}
-        <p style="color: red;">{{ error_message }}</p>
-    {% endif %}
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <p style="color: seagreen;">{{ messages[0] }}</p>
-      {% endif %}
-    {% endwith %}
-
-    <form method="POST">
-        <table>
-            <tr>
-                <td><label for="email">Email:</label></td>
-                <td><input type="email" id="email" name="email" required></td>
-            </tr>
-
-            <tr>
-                <td><label for="password">Password:</label></td>
-                <td><input type="password" id="password" name="password" required></td>
-            </tr>
-
-            <tr>
-                <td colspan="2"><button type="submit">Login</button></td>
-            </tr>
-            <tr>
-            <td colspan="2">
-                <a href="/forgot_password">Forgot Password?</a>
-            </td>
-        </tr>
-        </table>
-
-    </form>
-{% endblock %}
+    {% block content %}
+        <h2>Login to Stock Buddies</h2>
+        {% if error_message %}
+            <p style="color: red;">{{ error_message }}</p>
+        {% endif %}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <p style="color: seagreen;">{{ messages[0] }}</p>
+          {% endif %}
+        {% endwith %}
+    
+        <form method="POST">
+            <table>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="email" id="email" name="email" required></td>
+                </tr>
+    
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td><input type="password" id="password" name="password" required></td>
+                </tr>
+    
+                <tr>
+                    <td colspan="2"><button type="submit">Login</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a href="/forgot_password">Forgot Password?</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    {% endblock %}        
+</body>
+</html>
