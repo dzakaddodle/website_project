@@ -67,6 +67,11 @@ tr:hover {
 }
 
 /* Form Styles */
+form {
+    width: 50%;
+    margin-left: 25%;
+}
+
 input[type="text"], input[type="email"], input[type="password"] {
     width: 50%;
     padding: 8px;
