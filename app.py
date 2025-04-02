@@ -121,7 +121,7 @@ def basic_menu():
 
 @app.route('/advanced_menu')
 def advanced_menu():
-    return render_template("advanced_menu.html", sectors=search.sectors, exchanges=search.exchanges)
+    return render_template("advanced_menu.html", sectors=search.sectors, exchanges=search.exchanges, error_message=None)
 
 @app.route('/basic_search', methods=['POST'])
 def basic_search():
@@ -133,9 +133,12 @@ def basic_search():
 
 @app.route('/advanced_search', methods=['POST'])
 def advanced_search():  # put application's code here
-    #if request.method == "POST":
-    data = search.advancedFilter(request.form['sectors'], request.form['exchanges'], request.form['mktmax'], request.form['mktmin'], request.form['limit'])
-    return render_template("advanced_search.html", results=data)
+    try:
+        data = search.advancedFilter(request.form['sectors'], request.form['exchanges'], request.form['mktmax'], request.form['mktmin'], request.form['limit'])
+        return render_template("advanced_search.html", results=data)
+    except:
+        return render_template("advanced_menu.html", error_message="No results found. Please try again.")
+    
 
 @app.route('/more_info', methods=['POST'])
 def more_info():

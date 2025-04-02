@@ -67,6 +67,21 @@ class StockMarket:
 
     # More specific search for stocks that match sector, exchange, and market cap specified. Can also limit number of results given
     def advancedFilter(self, sector="", exchange="", mktCapMax=None, mktCapMin=None, limit=None):
+        try:
+            mktCapMax = int(mktCapMax)
+        except:
+            mktCapMax = None
+        try:
+            mktCapMin = int(mktCapMin)
+        except:
+            mktCapMin = None
+        try:
+            limit = int(limit)
+            if not 0 <= limit <= 5:
+                limit = None
+        except:
+            limit = None
+        
         params = {
             "marketCapMoreThan": mktCapMin,
             "marketCapLowerThan": mktCapMax,
