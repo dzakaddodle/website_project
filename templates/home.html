@@ -11,30 +11,43 @@
     {% extends 'navbar.html' %}
 
     {% block content %}
-        <!-- Show content if logged in -->
-        <h1>Welcome to Stock Buddies</h1>
-        <p>Your ultimate companion for managing and tracking stocks effortlessly. Whether you're a new investor or a seasoned trader, Stock Buddies provides an intuitive and interactive platform to help you stay on top of your investments.
-        </p>
-    
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Welcome to Stock Buddies!</h1>
+                <p>Your ultimate companion for managing and tracking stocks effortlessly. Whether you're a new investor or a seasoned trader, Stock Buddies provides an intuitive and interactive platform to help you stay on top of your investments.</p>
+            </div>
+        </section>
+
         <!-- About Us Section -->
         <div class="description">
             <h2>Why Stock Buddies?</h2>
-            <p>
-                ✅ Track & Save your favorite stocks effortlessly <br>
-                ✅ Analyze market trends with real-time data <br>
-                ✅ User-friendly & fun for investors of all levels <br> 
-                <br>
-                Take control of your portfolio with ease — Start your journey with Stock Buddies today!
-            </p>
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-text">
+                        <h3>Track & Save your favorite stocks effortlessly</h3>
+                        <p>Manage your investments with ease, track your favorite stocks in real-time, and save them for future reference.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">
+                        <h3>Analyze market trends with real-time data</h3>
+                        <p>Stay ahead of the game with live data analysis, market insights, and trend predictions.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💡</div>
+                    <div class="feature-text">
+                        <h3>User-friendly & fun for investors of all levels</h3>
+                        <p>Whether you're a beginner or a pro, Stock Buddies makes stock tracking simple, intuitive, and fun.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="cta-text">Take control of your portfolio with ease — Start your journey with Stock Buddies today!</p>
         </div>
-    
-        <!-- Image Carousel -->
-        <div>
-            <img src="/static/image1.jpg" alt="Stock Image 1" height="200px" width="400px">
-            <img src="/static/image2.jpg" alt="Stock Image 2" height="200px" width="400px">
-            <img src="/static/image3.jpg" alt="Stock Image 3" height="200px" width="400px">
-        </div>
-    
-    {% endblock %}          
+
+    {% endblock %}
+
 </body>
 </html>
