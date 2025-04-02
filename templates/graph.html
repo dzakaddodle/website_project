@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Stock Graph</title>
-</head>
-<body>
+{% extends 'navbar.html' %}
+
+{% block content %}
     <div class="container">
         <h2>Stock Graphs</h2>
         <form method="POST">
@@ -22,5 +17,4 @@
             {% endif %}
         {% endif %}
     </div>
-</body>
-</html>
+{% endblock %}
