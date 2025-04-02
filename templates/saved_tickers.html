@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Manager</title>
+</head>
+<body>
+    <h1>Stock Manager</h1>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+    
+    <form action="/add" method="post">
+        <label for="ticker">Ticker:</label>
+        <input type="text" id="ticker" name="ticker" required>
+        <button type="submit">Add Stock</button>
+    </form>
+    
+    <h2>Saved Stocks</h2>
+    <table>
+        <tr>
+            <th>Ticker</th>
+            <th>Company Name</th>
+            <th>Market Cap</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock[0] }}</td>
+            <td>{{ stock[1] }}</td>
+            <td>{{ stock[2] }}</td>
+            <td>{{ stock[3] }}</td>
+            <td>
+                <form action="/delete" method="post" style="display:inline;">
+                    <input type="hidden" name="ticker" value="{{ stock[0] }}">
+                    <button type="submit" style="background-color: lightcoral; color: black;">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <form action="/export" method="post">
+        <button type="submit">Export to CSV</button>
+    </form>
+</body>
+</html>
