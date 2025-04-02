@@ -1,41 +1,11 @@
+<!-- saved_tickers.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saved Stocks</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .delete-btn { 
-            background-color: #ff6b6b; 
-            color: white; 
-            border: none; 
-            border-radius: 4px; 
-            padding: 6px 12px;
-            cursor: pointer;
-        }
-        .export-btn { 
-            background-color: #2196F3; 
-            color: white; 
-            border: none; 
-            border-radius: 4px; 
-            padding: 8px 16px; 
-            margin-top: 20px;
-            cursor: pointer;
-        }
-        .messages { margin: 20px 0; }
-        .error { color: #d32f2f; }
-        .success { color: #388e3c; }
-        .no-stocks { margin: 20px 0; font-style: italic; color: #666; }
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     {% include 'navbar.html' %}
@@ -43,7 +13,7 @@
     <div class="header-container">
         <h1>Your Saved Stocks</h1>
         {% if stocks and stocks|length > 0 %} <!--Only show "Export CSV" button if there is data-->
-        <form method="post">
+        <form action="{{ url_for('saved_tickers') }}" method="post">
             <input type="hidden" name="export_stocks" value="1">
             <button type="submit" class="export-btn">Export to CSV</button>
         </form>
@@ -80,7 +50,7 @@
                     <td>{{ stock[2] }}</td>
                     <td>{{ stock[3][:100] }}{% if stock[3]|length > 100 %}...{% endif %}</td>
                     <td>
-                        <form method="post" style="display: inline;">
+                        <form action="{{ url_for('saved_tickers') }}" method="post" style="display: inline;">
                             <input type="hidden" name="delete_stock" value="1">
                             <input type="hidden" name="ticker" value="{{ stock[0] }}">
                             <button type="submit" class="delete-btn">Delete</button>
