@@ -60,7 +60,7 @@ def login():
         elif login_output == 'wrong password':
             error_message = 'You have entered the wrong password. Please try again or change your password'
         elif login_output:
-            return render_template('menu.html')
+            return render_template('menu.html', name=user.name)
 
     return render_template('login.html', error_message=error_message)
 
