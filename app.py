@@ -140,5 +140,11 @@ def more_info():
     info = search.getStockInfo(request.form['info'])
     return render_template("more_info.html", data=info)
 
+@app.route('/save_stock', methods=['POST'])
+def save_stock():
+    info = search.getStockInfo(request.form['save'])
+    search.saveStock(info)
+    return "Stock has been saved"
+
 if __name__ == '__main__':
     app.run(debug=True)
