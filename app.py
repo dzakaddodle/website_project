@@ -5,7 +5,7 @@ from web import Search
 from saved_tickers import Stocks
 from pandas_api import Graphs
 from menu import Menu
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, Response
 import re
 import csv
 import os
@@ -90,6 +90,7 @@ def login():
         elif login_output:
             session['is_logged_in'] = True
             session['name'] = user.name
+            session['email'] = email 
             return redirect(url_for('home'))
 
     return render_template('login.html', error_message=error_message)
@@ -150,37 +151,54 @@ def logout():
 
 @app.route('/saved_tickers', methods=['GET', 'POST'])
 def saved_tickers():
-    if not session.get('is_logged_in'):
-        flash("You must be logged in to access saved stocks.")
+    is_logged_in = session.get('is_logged_in', False)
+    if not is_logged_in:
+        flash("Please log in to access saved tickers", 'error')
         return redirect(url_for('login'))
-
+    
     user_email = session.get('email')
     user_obj = User(user_manager)
     user_obj.email = user_email
-    stocks = Stocks(stock_manager, user_obj)
+    stocks_manager = Stocks(stock_manager, user_obj)
 
     if request.method == 'POST':
-        if 'ticker' in request.form and 'name' in request.form:  # Adding stock
-            ticker = request.form['ticker']
-            name = request.form['name']
-            market_cap = request.form['market_cap']
-            description = request.form['description']
-            stocks.save(ticker, name, market_cap, description)
-            flash("Stock added successfully!")
+        # Handle delete stock
+        if 'delete_stock' in request.form:
+            ticker_to_delete = request.form.get("ticker", "").strip().upper()
+            try:
+                stocks_manager.delete(ticker_to_delete)
+                flash(f"Stock {ticker_to_delete} deleted successfully!", 'success')
+            except Exception as e:
+                flash(f"Error deleting stock: {str(e)}", 'error')
 
-        elif 'ticker' in request.form and 'delete' in request.form:  # Deleting stock
-            ticker = request.form['ticker']
-            stocks.delete(ticker)
-            flash("Stock deleted successfully!")
+        # Handle export to CSV
+        elif 'export_stocks' in request.form:
+            try:
+                import io
+                from flask import Response
+                
+                output = io.StringIO()
+                writer = csv.writer(output)
+                writer.writerow(["Ticker", "Company Name", "Market Cap", "Description"])
+                
+                stock_list = stock_manager.see_saved_stocks(user_email)
+                writer.writerows(stock_list)
+                
+                output.seek(0)
+                return Response(
+                    output,
+                    mimetype="text/csv",
+                    headers={"Content-Disposition": "attachment;filename=saved_stocks.csv"}
+                )
+            except Exception as e:
+                flash(f"Error exporting to CSV: {str(e)}", 'error')
 
-        elif 'export' in request.form:  # Exporting stocks to CSV
-            stocks.export_to_csv()
-            flash("Stocks exported successfully!")
-
-        return redirect(url_for('saved_tickers'))
-
-    stock_list = stocks.view_saved_stocks()
-    return render_template('saved_tickers.html', stocks=stock_list)
+    # Get saved stocks for display
+    stock_list = stock_manager.see_saved_stocks(user_email)
+    
+    return render_template("saved_tickers.html", 
+                         stocks=stock_list, 
+                         is_logged_in=is_logged_in)
 
 
 @app.route("/graph", methods=["GET","POST"])
