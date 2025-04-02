@@ -11,7 +11,10 @@ class User:
 
     def create_account(self, name, email, password):
         print("Hi! We're hapy that you're creating an account with us. Please fill in the following information please.")
-        if self.user_manager.add_user(name=name, password=password, email=email):
+        self.name = name
+        self.email = email
+        self.password = password
+        if self.user_manager.add_user(name=self.name, password=self.password, email=self.email):
             print("Your account has been successfully created!")
             return False
         else:
