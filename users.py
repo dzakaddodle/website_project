@@ -9,12 +9,9 @@ class User:
         self.password = ''
         #add other key variables that we want to look for? (risk appetite, bookmarked sticks etc?)
 
-    def create_account(self):
+    def create_account(self, name, email, password):
         print("Hi! We're hapy that you're creating an account with us. Please fill in the following information please.")
-        self.name = input("Name: ")
-        self.email = input("Email: ")
-        self.password = input("Password: ")
-        if self.user_manager.add_user(name=self.name, password=self.password, email=self.email):
+        if self.user_manager.add_user(name=name, password=password, email=email):
             print("Your account has been successfully created!")
             return False
         else:
