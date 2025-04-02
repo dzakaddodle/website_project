@@ -7,6 +7,9 @@
 </head>
 
 <body>
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
     <h1>Info About Stock:</h1>
     <h2>Symbol: {{data['symbol']}}</h2>
     <h2>Company Name: {{data['companyName']}}</h2>

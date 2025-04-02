@@ -142,9 +142,11 @@ def advanced_search():  # put application's code here
 
 @app.route('/more_info', methods=['POST'])
 def more_info():
-    info = search.getStockInfo(request.form['info'])
-    return render_template("more_info.html", data=info)
-
+    try:
+        info = search.getStockInfo(request.form['info'])
+        return render_template("more_info.html", data=info)
+    except:
+        return render_template("more_info.html", data=[], error_message="Stock not found.")
 @app.route('/save_stock', methods=['POST'])
 def save_stock():
     info = search.getStockInfo(request.form['save'])
