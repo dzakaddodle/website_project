@@ -7,10 +7,14 @@
 <body>
     <form action="{{ url_for('basic_search') }}" method="POST">
         <label for="ticker">Ticker:</label>
-        <input type="text" id="keyword" name="keyword">
+        <input type="text" id="keyword" name="keyword" value="">
         <label for="limit">Limit:</label>
-        <input type="limit" id="limit" name="limit" min="0" max="5">
+        <input type="number" id="limit" name="limit" min="0" max="5" value="">
         <input type="submit" value="Submit">
     </form>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
 </body>
 </html>

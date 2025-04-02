@@ -117,7 +117,7 @@ def search_menu():
 
 @app.route('/basic_menu')
 def basic_menu():
-    return render_template("basic_menu.html")
+    return render_template("basic_menu.html", error_message=None)
 
 @app.route('/advanced_menu')
 def advanced_menu():
@@ -125,9 +125,11 @@ def advanced_menu():
 
 @app.route('/basic_search', methods=['POST'])
 def basic_search():
-    #if request.method == "POST":
-    data = search.nameSearch(request.form['keyword'], request.form['limit'])
-    return render_template("basic_search.html", results=data)
+    try:
+        data = search.nameSearch(request.form['keyword'], request.form['limit'])
+        return render_template("basic_search.html", results=data)
+    except:
+        return render_template("basic_menu.html", error_message="No results match your keyword. Please enter a different keyword.")
 
 @app.route('/advanced_search', methods=['POST'])
 def advanced_search():  # put application's code here

@@ -42,6 +42,12 @@ class StockMarket:
 
     # search stock market for company name's or tickers that contain keyword entered
     def nameSearch(self, keyword="", limit=None):
+        try:
+            limit = int(limit)
+            if not 0 <= limit <= 5:
+                limit = None
+        except:
+            limit = None
         url = f"https://financialmodelingprep.com/stable/search-symbol?query={keyword}&limit={limit}&apikey={self.api_key}"
         #listOfSearched = []
         response = requests.get(url)
