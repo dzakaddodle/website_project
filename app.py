@@ -8,9 +8,8 @@ from menu import Menu
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = 'weloveprogramming:)'
 
-# Initialize Database
 db = DatabaseManager()
 db.create_tables()
 
@@ -25,7 +24,9 @@ menu = Menu(user, search, user_manager, stock_manager)
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    is_logged_in = session.get('is_logged_in', False)
+    user_name = session.get('user_name', '')
+    return render_template('home.html', is_logged_in=is_logged_in, user_name=user_name)
 
 
 @app.route('/register', methods=["GET", "POST"])
@@ -60,7 +61,9 @@ def login():
         elif login_output == 'wrong password':
             error_message = 'You have entered the wrong password. Please try again or change your password'
         elif login_output:
-            return render_template('menu.html', name=user.name)
+            session['is_logged_in'] = True
+            session['name'] = user.name
+            return render_template('home.html', name=user.name, is_logged_in=True)
 
     return render_template('login.html', error_message=error_message)
 
@@ -107,9 +110,15 @@ def reset_password():
     return render_template('reset_password.html')
 
 
-@app.route('/main_menu')
-def main_menu():
-    return render_template('menu.html')
+@app.route('/navbar')
+def navbar():
+    return render_template('navbar.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('is_logged_in', None)
+    return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
