@@ -125,15 +125,20 @@ def advanced_menu():
 
 @app.route('/basic_search', methods=['POST'])
 def basic_search():
-    if request.method == "POST":
-        data = search.nameSearch(request.form['keyword'], request.form['limit'])
+    #if request.method == "POST":
+    data = search.nameSearch(request.form['keyword'], request.form['limit'])
     return render_template("basic_search.html", results=data)
 
 @app.route('/advanced_search', methods=['POST'])
 def advanced_search():  # put application's code here
-    if request.method == "POST":
-        data = search.advancedFilter(request.form['sectors'], request.form['exchanges'], request.form['mktmax'], request.form['mktmin'], request.form['limit'])
+    #if request.method == "POST":
+    data = search.advancedFilter(request.form['sectors'], request.form['exchanges'], request.form['mktmax'], request.form['mktmin'], request.form['limit'])
     return render_template("advanced_search.html", results=data)
+
+@app.route('/more_info', methods=['POST'])
+def more_info():
+    info = search.getStockInfo(request.form['info'])
+    return render_template("more_info.html", data=info)
 
 if __name__ == '__main__':
     app.run(debug=True)
