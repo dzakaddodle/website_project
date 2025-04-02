@@ -29,7 +29,7 @@
     <h3>Exchange: {{data['exchange']}}</h3>
 
     <form action="{{ url_for('save_stock') }}" method="POST">
-        <button type="submit" name="save" value={{stock['symbol']}}>Save Stock</button>
+        <button type="submit" name="save" value={{data['symbol']}}>Save Stock</button>
     </form>
 </body>
 

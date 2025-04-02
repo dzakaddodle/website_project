@@ -13,6 +13,14 @@
         <h2>Price: ${{ stock['price'] }}</h2>
         <h2>Volume: {{ stock['volume'] }}</h2>
         <h2>Exchange: {{ stock['exchange']}}</h2>
+
+        <form action="{{ url_for('more_info') }}" method="POST">
+            <button type="submit" name="info" value={{stock['symbol']}}>More Info</button>
+        </form>
+
+        <form action="{{ url_for('save_stock') }}" method="POST">
+            <button type="submit" name="save" value={{stock['symbol']}}>Save Stock</button>
+        </form>
     {%  endfor %}
 </body>
 </html>
