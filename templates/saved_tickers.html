@@ -3,50 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Manager</title>
+    <title>Saved Stocks</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .delete-btn { 
+            background-color: #ff6b6b; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+        .export-btn { 
+            background-color: #2196F3; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            padding: 8px 16px; 
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .messages { margin: 20px 0; }
+        .error { color: #d32f2f; }
+        .success { color: #388e3c; }
+        .no-stocks { margin: 20px 0; font-style: italic; color: #666; }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Stock Manager</h1>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid black; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-    </style>
-    
-    <form action="/add" method="post">
-        <label for="ticker">Ticker:</label>
-        <input type="text" id="ticker" name="ticker" required>
-        <button type="submit">Add Stock</button>
-    </form>
-    
-    <h2>Saved Stocks</h2>
-    <table>
-        <tr>
-            <th>Ticker</th>
-            <th>Company Name</th>
-            <th>Market Cap</th>
-            <th>Description</th>
-            <th>Action</th>
-        </tr>
-        {% for stock in stocks %}
-        <tr>
-            <td>{{ stock[0] }}</td>
-            <td>{{ stock[1] }}</td>
-            <td>{{ stock[2] }}</td>
-            <td>{{ stock[3] }}</td>
-            <td>
-                <form action="/delete" method="post" style="display:inline;">
-                    <input type="hidden" name="ticker" value="{{ stock[0] }}">
-                    <button type="submit" style="background-color: lightcoral; color: black;">Delete</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br>
-    <form action="/export" method="post">
-        <button type="submit">Export to CSV</button>
-    </form>
+    {% include 'navbar.html' %}
+
+    <div class="header-container">
+        <h1>Your Saved Stocks</h1>
+        {% if stocks and stocks|length > 0 %} <!--Only show "Export CSV" button if there is data-->
+        <form method="post">
+            <input type="hidden" name="export_stocks" value="1">
+            <button type="submit" class="export-btn">Export to CSV</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <!-- Flash messages -->
+    <div class="messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    {% if stocks and stocks|length > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Company Name</th>
+                    <th>Market Cap</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock[0] }}</td>
+                    <td>{{ stock[1] }}</td>
+                    <td>{{ stock[2] }}</td>
+                    <td>{{ stock[3][:100] }}{% if stock[3]|length > 100 %}...{% endif %}</td>
+                    <td>
+                        <form method="post" style="display: inline;">
+                            <input type="hidden" name="delete_stock" value="1">
+                            <input type="hidden" name="ticker" value="{{ stock[0] }}">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-stocks">You haven't saved any stocks yet.</p>
+    {% endif %}
 </body>
 </html>
