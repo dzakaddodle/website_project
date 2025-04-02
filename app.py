@@ -8,7 +8,7 @@ from menu import Menu
 from flask import Flask, render_template, request, redirect, url_for, session, flash, Response
 import re
 import csv
-import os
+import io
 
 app = Flask(__name__)
 app.secret_key = 'weloveprogramming:)'
@@ -47,7 +47,7 @@ def register():
         if not all([name, email, password, confirm_password]):
             error_message = 'All fields are required.'
             return render_template('register.html', error_message=error_message)
-        
+
         # Validate email format
         if not re.match(EMAIL_REGEX, email):
             error_message = 'Invalid email format. Please enter a valid email.'
@@ -57,12 +57,12 @@ def register():
         if password != confirm_password:
             error_message = 'Passwords do not match. Please try again.'
             return render_template('register.html', error_message=error_message)
-        
+
         # Check if email already exists in the database
         if user.create_account(name, email, password):
             error_message = 'You already have an account with us, please login instead'
             return render_template('register.html', error_message=error_message)
-        
+
         else:
             flash("You have successfully created an account! Please login")
             return redirect(url_for('login'))
@@ -77,26 +77,26 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
         login_output = user.login(email=email, password=password)
-        
+
         # Check if user already exists in the database
         if not login_output:
             error_message = 'You currently do not have an account with us, please register instead!'
-        
+
         # Check if user entered the correct password
         elif login_output == 'wrong password':
             error_message = 'You have entered the wrong password. Please try again or change your password'
-        
+
         # Successful login
         elif login_output:
             session['is_logged_in'] = True
             session['name'] = user.name
-            session['email'] = email 
+            session['email'] = email
             return redirect(url_for('home'))
 
     return render_template('login.html', error_message=error_message)
 
 
-@app.route('/forgot_password', methods=["GET","POST"])
+@app.route('/forgot_password', methods=["GET", "POST"])
 def forgot_password():
     error_message = None
     if request.method == "POST":
@@ -155,7 +155,7 @@ def saved_tickers():
     if not is_logged_in:
         flash("Please log in to access saved tickers", 'error')
         return redirect(url_for('login'))
-    
+
     user_email = session.get('email')
     user_obj = User(user_manager)
     user_obj.email = user_email
@@ -174,16 +174,13 @@ def saved_tickers():
         # Handle export to CSV
         elif 'export_stocks' in request.form:
             try:
-                import io
-                from flask import Response
-                
                 output = io.StringIO()
                 writer = csv.writer(output)
                 writer.writerow(["Ticker", "Company Name", "Market Cap", "Description"])
-                
+
                 stock_list = stock_manager.see_saved_stocks(user_email)
                 writer.writerows(stock_list)
-                
+
                 output.seek(0)
                 return Response(
                     output,
@@ -195,13 +192,13 @@ def saved_tickers():
 
     # Get saved stocks for display
     stock_list = stock_manager.see_saved_stocks(user_email)
-    
-    return render_template("saved_tickers.html", 
-                         stocks=stock_list, 
-                         is_logged_in=is_logged_in)
+
+    return render_template("saved_tickers.html",
+                           stocks=stock_list,
+                           is_logged_in=is_logged_in)
 
 
-@app.route("/graph", methods=["GET","POST"])
+@app.route("/graph", methods=["GET", "POST"])
 def graph():
     is_logged_in = session.get('is_logged_in', False)
     stock_symbol = None
