@@ -121,5 +121,21 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route("/graph", methods=["GET","POST"])
+def graph():
+    is_logged_in = session.get('is_logged_in', False)
+    stock_symbol = None
+    plot_url = None
+    error_message = None
+
+    if request.method == "POST":
+        stock_symbol = request.form.get("stock_symbol", "").strip().upper()
+        graph = Graphs(stock_symbol)
+        plot_url, error_message = graph.get_graph()
+
+    return render_template("graph.html", plot_url=plot_url, error_message=error_message, stock_symbol=stock_symbol,
+                           is_logged_in=is_logged_in)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
