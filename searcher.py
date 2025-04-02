@@ -43,21 +43,21 @@ class StockMarket:
     # search stock market for company name's or tickers that contain keyword entered
     def nameSearch(self, keyword="", limit=None):
         url = f"https://financialmodelingprep.com/stable/search-symbol?query={keyword}&limit={limit}&apikey={self.api_key}"
-        listOfSearched = []
+        #listOfSearched = []
         response = requests.get(url)
         data = response.json()
 
         if not data:
             print("No results found")
 
-        for i, stock in enumerate(data):
-            listOfSearched.append(stock['symbol'])
-            print(f"Result: {i + 1}")
-            print(f"Symbol: {stock['symbol']}")
-            print(f"Name: {stock['name']}")
-            print(f"Exchange: {stock['exchange']}\n")
+        # for i, stock in enumerate(data):
+        #     listOfSearched.append(stock['symbol'])
+        #     print(f"Result: {i + 1}")
+        #     print(f"Symbol: {stock['symbol']}")
+        #     print(f"Name: {stock['name']}")
+        #     print(f"Exchange: {stock['exchange']}\n")
 
-        return listOfSearched
+        return data
 
     # More specific search for stocks that match sector, exchange, and market cap specified. Can also limit number of results given
     def advancedFilter(self, sector="", exchange="", mktCapMax=None, mktCapMin=None, limit=None):

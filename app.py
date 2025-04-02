@@ -111,6 +111,24 @@ def reset_password():
 def main_menu():
     return render_template('menu.html')
 
+@app.route('/search_menu')
+def search_menu():
+    return render_template("search_menu.html")
+
+@app.route('/basic_menu')
+def basic_menu():
+    return render_template("basic_menu.html")
+
+@app.route('/advanced_menu')
+def advanced_menu():
+    return render_template("advanced_menu.html")
+
+@app.route('/basic_search', methods=['POST'])
+def basic_search():
+    if request.method == "POST":
+        data = search.nameSearch(request.form['keyword'], request.form['limit'])
+        print(data)
+    return render_template("basic_search.html", results=data)
 
 if __name__ == '__main__':
     app.run(debug=True)
