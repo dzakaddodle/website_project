@@ -90,7 +90,7 @@ def login():
         elif login_output:
             session['is_logged_in'] = True
             session['name'] = user.name
-            return render_template('home.html', name=user.name, is_logged_in=True)
+            return redirect(url_for('home'), name=user.name, is_logged_in=True)
 
     return render_template('login.html', error_message=error_message)
 
