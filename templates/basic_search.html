@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {%  for stock in results %}
+        <h1>Symbol: {{ stock['symbol'] }}</h1>
+        <h1>Name: {{ stock['name']}}</h1>
+        <h2>Exchange: {{ stock['exchange']}}</h2>
+    {%  endfor %}
+</body>
+</html>
