@@ -1,84 +1,126 @@
+/* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212; /* Dark gray background */
+    color: #E0E0E0; /* Light text */
     margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.container {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 90%;
+    padding: 0;
     text-align: center;
 }
 
-.image-class {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    display: block;
+/* Navbar Styling */
+.navbar {
+    background-color: #1F2833; /* Dark navy-blue */
+    padding: 15px 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
 }
 
-h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
+.navbar a {
+    color: #E0E0E0;
+    text-decoration: none;
+    padding: 12px 18px;
+    margin: 0 8px;
+    transition: 0.3s;
+    font-weight: bold;
 }
 
-form {
-    margin: 15px 0;
+.navbar a:hover {
+    background-color: #45A29E; /* Soft teal accent */
+    color: #FFD700; /* Gold for contrast */
+    border-radius: 5px;
 }
 
-input[type="text"], button {
+/* Container for Page Content */
+.container {
+    width: 85%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Table Styling for Saved Stocks */
+table {
     width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-    font-size: 18px;
-    box-sizing: border-box;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #1C1C27; /* Dark grayish background */
+    border-radius: 10px;
+    overflow: hidden;
 }
 
+th, td {
+    border: 1px solid #3E4462; /* Darker border */
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #0B0C10; /* Darker header */
+    color: #66FCF1; /* Light blue text */
+}
+
+tr:nth-child(even) {
+    background-color: #23232E; /* Slightly different shade for rows */
+}
+
+tr:hover {
+    background-color: #393E46; /* Highlight row on hover */
+}
+
+/* Form Styles */
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Button Styles */
 button {
-    background-color: #007bff;
-    color: white;
-    border: none;
+    background-color: #45A29E;
+    color: #121212;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-weight: bold;
+    border: none;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #66FCF1;
 }
 
-p {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #007bff;
+/* Flash Messages */
+ul {
+    list-style-type: none;
+    padding: 10px;
+    background-color: #282C35;
+    border-radius: 5px;
+    color: #FFD700;
+    font-weight: bold;
 }
 
+/* Mobile Responsive */
 @media (max-width: 768px) {
-    .container {
-        padding: 20px;
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    h2 {
-        font-size: 20px;
+    .navbar a {
+        display: block;
+        margin-bottom: 5px;
     }
 
-    input, button {
+    table {
         font-size: 14px;
     }
 
-    p {
-        font-size: 16px;
+    input[type="text"] {
+        width: 100%;
     }
 }
