@@ -7,6 +7,8 @@
 </head>
 
 <body>
+    {% extends 'navbar.html' %}
+    {% block content %}
     {% if error_message %}
         <p style="color: red;">{{ error_message }}</p>
     {% endif %}
@@ -34,6 +36,7 @@
     <form action="{{ url_for('save_stock') }}" method="POST">
         <button type="submit" name="save" value={{data['symbol']}}>Save Stock</button>
     </form>
+    {% endblock %}
 </body>
 
 </html>
