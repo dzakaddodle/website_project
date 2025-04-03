@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Information</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-
 <body>
     {% extends 'navbar.html' %}
     {% block content %}
-    {% if error_message %}
-        <p style="color: red;">{{ error_message }}</p>
-    {% endif %}
-    <h1>Info About Stock:</h1>
-    <h2>Symbol: {{data['symbol']}}</h2>
-    <h2>Company Name: {{data['companyName']}}</h2>
-    <h3>Website: {{data['website']}}</h3>
-    <h3>Description: {{data['description']}}</h3>
-    <h3>Country: {{data['country']}}</h3>
-    <h3>Number of Full-Time Employees: {{data['fullTimeEmployees']}}</h3>
-    <h3>Price: {{data['price']}}</h3>
-    <h3>Market Cap: {{data['marketCap']}}</h3>
-    <h3>Beta: {{data['beta']}}</h3>
-    <h3>Last Dividend: {{data['lastDividend']}}</h3>
-    <h3>Range: {{data['range']}}</h3>
-    <h3>Change: {{data['change']}}</h3>
-    <h3>Change %: {{data['changePercentage']}}</h3>
-    <h3>Volume: {{data['volume']}}</h3>
-    <h3>Average Volume: {{data['averageVolume']}}</h3>
-    <h3>Currency: {{data['currency']}}</h3>
-    <h3>Sector: {{data['sector']}}</h3>
-    <h3>Industry: {{data['industry']}}</h3>
-    <h3>Exchange: {{data['exchange']}}</h3>
+    <div class="stock-info-container">
+        <h1>Stock Information</h1>
 
-    <form action="{{ url_for('save_stock') }}" method="POST">
-        <button type="submit" name="save" value={{data['symbol']}}>Save Stock</button>
-    </form>
+        <div class="stock-details">
+            <div class="stock-item">
+                <h2>Symbol: <span>{{ data['symbol'] }}</span></h2>
+                <h3>Company Name: <span>{{ data['companyName'] }}</span></h3>
+                <p><strong>Website:</strong> <a href="{{ data['website'] }}" target="_blank">{{ data['website'] }}</a></p>
+                <p><strong>Description:</strong> {{ data['description'] }}</p>
+                <p><strong>Country:</strong> {{ data['country'] }}</p>
+                <p><strong>Employees:</strong> {{ data['fullTimeEmployees'] }}</p>
+            </div>
+            
+            <div class="stock-item2">
+                <p><strong>Price:</strong> ${{ data['price'] }}</p>
+                <p><strong>Market Cap:</strong> ${{ data['marketCap'] }}</p>
+                <p><strong>Beta:</strong> {{ data['beta'] }}</p>
+                <p><strong>Last Dividend:</strong> ${{ data['lastDividend'] }}</p>
+                <p><strong>Range:</strong> {{ data['range'] }}</p>
+                <p class="{{ 'positive-change' if data['change'] >= 0 else 'negative-change' }}"><strong>Change:</strong> {{ data['change'] }}</p>
+                <p class="{{ 'positive-change' if data['changePercentage'] >= 0 else 'negative-change' }}"><strong>Change %:</strong> {{ data['changePercentage'] }}%</p>
+                <p><strong>Volume:</strong> {{ data['volume'] }}</p>
+                <p><strong>Average Volume:</strong> {{ data['averageVolume'] }}</p>
+                <p><strong>Currency:</strong> {{ data['currency'] }}</p>
+                <p><strong>Sector:</strong> {{ data['sector'] }}</p>
+                <p><strong>Industry:</strong> {{ data['industry'] }}</p>
+                <p><strong>Exchange:</strong> {{ data['exchange'] }}</p>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <form action="{{ url_for('save_stock') }}" method="POST">
+                <button type="submit" name="save" value="{{ data['symbol'] }}">Save Stock</button>
+            </form>
+        </div>
+
+        {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+        {% endif %}
+    </div>
     {% endblock %}
 </body>
-
 </html>
