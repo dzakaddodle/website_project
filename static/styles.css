@@ -39,9 +39,9 @@ body {
 
 /* Table Styling for Saved Stocks */
 table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin: 20px auto;
     background-color: #1C1C27; /* Dark grayish background */
     border-radius: 10px;
     overflow: hidden;
@@ -51,6 +51,14 @@ th, td {
     border: 1px solid #3E4462; /* Darker border */
     padding: 12px;
     text-align: left;
+}
+
+td.delete-btn {
+    text-align: center;
+}
+
+form.delete-btn {
+    margin: 0;
 }
 
 th {
@@ -68,8 +76,8 @@ tr:hover {
 
 /* Form Styles */
 form {
-    width: 50%;
-    margin-left: 25%;
+    width: 40%;
+    margin-left: 30%;
 }
 
 input[type="text"], input[type="email"], input[type="password"] {
@@ -299,4 +307,54 @@ ul {
     .cta-text {
         font-size: 1rem; /* Slightly smaller font on mobile */
     }
+}
+
+/* Specific styles for the stock news section */
+
+.news-container {
+    width: 60%;
+    margin: 20px auto; /* Added top and bottom margin for space */
+    padding: 20px; /* Added padding inside the box */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    border-radius: 25px;
+    background-color: #282C35;
+}
+
+.news-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.news-item {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.news-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.news-item a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.news-item a:visited {
+    color: #3a4da7;
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: #888;
+    margin-left: 10px;
+}
+
+/* search features specific css */
+.search-form {
+    margin-top: 30px;
+}
+
+h2.save_text {
+    color: #8FBC8B;
 }
