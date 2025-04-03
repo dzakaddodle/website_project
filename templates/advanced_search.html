@@ -8,23 +8,43 @@
 <body>
     {% extends 'navbar.html' %}
     {% block content %}
-    {%  for stock in results %}
-        <h1>Symbol: {{ stock['symbol'] }}</h1>
-        <h1>Name: {{ stock['companyName']}}</h1>
-        <h2>Market Cap: {{ stock['marketCap'] }}</h2>
-        <h2>Sector: {{ stock['sector'] }}</h2>
-        <h2>Price: ${{ stock['price'] }}</h2>
-        <h2>Volume: {{ stock['volume'] }}</h2>
-        <h2>Exchange: {{ stock['exchange']}}</h2>
+    
+    <table class="stock-table">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Market Cap</th>
+                <th>Sector</th>
+                <th>Price</th>
+                <th>Volume</th>
+                <th>Exchange</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in results %}
+            <tr>
+                <td>{{ stock['symbol'] }}</td>
+                <td>{{ stock['name'] }}</td>
+                <td>{{ stock['marketCap'] }}</td>
+                <td>{{ stock['sector'] }}</td>
+                <td>{{ stock['price'] }}</td>
+                <td>{{ stock['volume'] }}</td>
+                <td>{{ stock['exchange'] }}</td>
+                <td class="action-buttons">
+                    <form action="{{ url_for('more_info') }}" method="POST" style="display: inline;">
+                        <button type="submit" name="info" value="{{ stock['symbol'] }}">More Info</button>
+                    </form>
+                    <form action="{{ url_for('save_stock') }}" method="POST" style="display: inline;">
+                        <button type="submit" name="save" value="{{ stock['symbol'] }}">Save Stock</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
 
-        <form action="{{ url_for('more_info') }}" method="POST">
-            <button type="submit" name="info" value={{stock['symbol']}}>More Info</button>
-        </form>
-
-        <form action="{{ url_for('save_stock') }}" method="POST">
-            <button type="submit" name="save" value={{stock['symbol']}}>Save Stock</button>
-        </form>
-    {%  endfor %}
     {% endblock %}
 </body>
 </html>
