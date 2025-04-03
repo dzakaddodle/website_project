@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    <h1>Info About Stock:</h1>
+    <h2>Symbol: {{data['symbol']}}</h2>
+    <h2>Company Name: {{data['companyName']}}</h2>
+    <h3>Website: {{data['website']}}</h3>
+    <h3>Description: {{data['description']}}</h3>
+    <h3>Country: {{data['country']}}</h3>
+    <h3>Number of Full-Time Employees: {{data['fullTimeEmployees']}}</h3>
+    <h3>Price: {{data['price']}}</h3>
+    <h3>Market Cap: {{data['marketCap']}}</h3>
+    <h3>Beta: {{data['beta']}}</h3>
+    <h3>Last Dividend: {{data['lastDividend']}}</h3>
+    <h3>Range: {{data['range']}}</h3>
+    <h3>Change: {{data['change']}}</h3>
+    <h3>Change %: {{data['changePercentage']}}</h3>
+    <h3>Volume: {{data['volume']}}</h3>
+    <h3>Average Volume: {{data['averageVolume']}}</h3>
+    <h3>Currency: {{data['currency']}}</h3>
+    <h3>Sector: {{data['sector']}}</h3>
+    <h3>Industry: {{data['industry']}}</h3>
+    <h3>Exchange: {{data['exchange']}}</h3>
+
+    <form action="{{ url_for('save_stock') }}" method="POST">
+        <button type="submit" name="save" value={{data['symbol']}}>Save Stock</button>
+    </form>
+</body>
+
+</html>

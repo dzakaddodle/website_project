@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    {% extends 'navbar.html' %}
+    {% block content %}
+    <h1>Select Which Type of Search:</h1>
+    <a href="/basic_menu"><button>Basic Search</button></a>
+    <a href="/advanced_menu"><button>Advanced Search</button></a>
+    {% endblock %}
+</body>
+</html>
