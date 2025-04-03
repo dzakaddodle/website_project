@@ -4,27 +4,42 @@ from bs4 import BeautifulSoup
 
 class Search:
     def __init__(self, ticker):
-        self.ticker = ticker.lower()
-        self.url = f'https://finviz.com/quote.ashx?t={ticker}&p=d'
+        self.ticker = ticker.upper()
+        self.url = f'https://finviz.com/quote.ashx?t={self.ticker}&p=d'
         self.soup = self.get_soup()
 
     def get_soup(self):
         headers = {"User-Agent": "Mozilla/5.0"}
         response = requests.get(self.url, headers=headers)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        return soup
-
-    def get_news(self, tagname, classname):
-        result = []
-        for each in self.soup.find_all(tagname, class_=classname):
-            result.append(each.text.strip())
-        return result
+        return BeautifulSoup(response.content, 'html.parser')
 
     def news_scrape(self):
-        news = self.get_news('a', 'tab-link-news')
-        if news:
-            print(f'RECENT NEWS HEADLINES FOR {self.ticker.upper()}')
-            for i, headline in enumerate(news[:20], 1):
-                print(f'{i}. {headline}')
-        else:
-            print(f'No news found for {self.ticker}')
+        news_data = []
+        try:
+            table = self.soup.find('table', class_='fullview-news-outer')
+            rows = table.find_all('tr')
+
+            for row in rows[:20]:
+                cols = row.find_all('td')
+                if len(cols) < 2:
+                    continue
+
+                timestamp = cols[0].text.strip()
+                link_tag = cols[1].find('a')
+                if link_tag:
+                    title = link_tag.text.strip()
+                    url = link_tag['href']
+                    if url.startswith('/'):
+                        url = f'https://www.finviz.com{url}'
+
+                    news_data.append({
+                        'title': title,
+                        'url': url,
+                        'timestamp': timestamp,
+                        'ticker': self.ticker
+                    })
+
+        except Exception as e:
+            print(f"Error scraping news for {self.ticker}: {e}")
+
+        return news_data

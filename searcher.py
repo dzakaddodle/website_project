@@ -42,25 +42,46 @@ class StockMarket:
 
     # search stock market for company name's or tickers that contain keyword entered
     def nameSearch(self, keyword="", limit=None):
+        try:
+            limit = int(limit)
+            if not 0 <= limit <= 5:
+                limit = None
+        except:
+            limit = None
         url = f"https://financialmodelingprep.com/stable/search-symbol?query={keyword}&limit={limit}&apikey={self.api_key}"
-        listOfSearched = []
+        #listOfSearched = []
         response = requests.get(url)
         data = response.json()
 
         if not data:
             print("No results found")
 
-        for i, stock in enumerate(data):
-            listOfSearched.append(stock['symbol'])
-            print(f"Result: {i + 1}")
-            print(f"Symbol: {stock['symbol']}")
-            print(f"Name: {stock['name']}")
-            print(f"Exchange: {stock['exchange']}\n")
+        # for i, stock in enumerate(data):
+        #     listOfSearched.append(stock['symbol'])
+        #     print(f"Result: {i + 1}")
+        #     print(f"Symbol: {stock['symbol']}")
+        #     print(f"Name: {stock['name']}")
+        #     print(f"Exchange: {stock['exchange']}\n")
 
-        return listOfSearched
+        return data
 
     # More specific search for stocks that match sector, exchange, and market cap specified. Can also limit number of results given
     def advancedFilter(self, sector="", exchange="", mktCapMax=None, mktCapMin=None, limit=None):
+        try:
+            mktCapMax = int(mktCapMax)
+        except:
+            mktCapMax = None
+        try:
+            mktCapMin = int(mktCapMin)
+        except:
+            mktCapMin = None
+        try:
+            limit = int(limit)
+            if not 0 <= limit <= 5:
+                limit = None
+        except:
+            limit = None
+        
         params = {
             "marketCapMoreThan": mktCapMin,
             "marketCapLowerThan": mktCapMax,
@@ -69,7 +90,7 @@ class StockMarket:
             "limit": limit
         }
 
-        listOfSearched = []
+        #listOfSearched = []
         url = f"https://financialmodelingprep.com/stable/company-screener?apikey={self.api_key}"
 
         response = requests.get(url, params=params)
@@ -78,18 +99,18 @@ class StockMarket:
         if not data:
             print("No results found")
 
-        for i, stock in enumerate(data):
-            listOfSearched.append(stock['symbol'])
-            print(f"Result: {i + 1}")
-            print(f"Symbol: {stock['symbol']}")
-            print(f"Name: {stock['companyName']}")
-            print(f"Market Cap: {stock['marketCap']}")
-            print(f"Sector: {stock['sector']}")
-            print(f"Price: {stock['price']}")
-            print(f"Volume: {stock['volume']}")
-            print(f"Exchange: {stock['exchange']}\n")
+        # for i, stock in enumerate(data):
+        #     listOfSearched.append(stock['symbol'])
+        #     print(f"Result: {i + 1}")
+        #     print(f"Symbol: {stock['symbol']}")
+        #     print(f"Name: {stock['companyName']}")
+        #     print(f"Market Cap: {stock['marketCap']}")
+        #     print(f"Sector: {stock['sector']}")
+        #     print(f"Price: {stock['price']}")
+        #     print(f"Volume: {stock['volume']}")
+        #     print(f"Exchange: {stock['exchange']}\n")
 
-        return listOfSearched
+        return data
 
     # get speicifc information on a stock
     def getStockInfo(self, ticker):
@@ -99,27 +120,27 @@ class StockMarket:
         stock = response.json()
         data = stock[0]
 
-        print(f"Symbol: {data['symbol']}")
-        print(f"Company Name: {data['companyName']}")
-        print(f"Website: {data['website']}")
-        print(f"Description: {data['description']}")
-        print(f"Country: {data['country']}")
-        print(f"Number of Full-Time Employees: {data['fullTimeEmployees']}")
-        print(f"Price: {data['price']}")
-        print(f"Market Cap: {data['marketCap']}")
-        print(f"Beta: {data['beta']}")
-        print(f"Last Dividend: {data['lastDividend']}")
-        print(f"Range: {data['range']}")
-        print(f"Change: {data['change']}")
-        print(f"Change %: {data['changePercentage']}")
-        print(f"Volume: {data['volume']}")
-        print(f"Average Volume: {data['averageVolume']}")
-        print(f"Currency: {data['currency']}")
-        print(f"Sector: {data['sector']}")
-        print(f"Industry: {data['industry']}")
-        print(f"Exchange: {data['exchange']}\n")
+        # print(f"Symbol: {data['symbol']}")
+        # print(f"Company Name: {data['companyName']}")
+        # print(f"Website: {data['website']}")
+        # print(f"Description: {data['description']}")
+        # print(f"Country: {data['country']}")
+        # print(f"Number of Full-Time Employees: {data['fullTimeEmployees']}")
+        # print(f"Price: {data['price']}")
+        # print(f"Market Cap: {data['marketCap']}")
+        # print(f"Beta: {data['beta']}")
+        # print(f"Last Dividend: {data['lastDividend']}")
+        # print(f"Range: {data['range']}")
+        # print(f"Change: {data['change']}")
+        # print(f"Change %: {data['changePercentage']}")
+        # print(f"Volume: {data['volume']}")
+        # print(f"Average Volume: {data['averageVolume']}")
+        # print(f"Currency: {data['currency']}")
+        # print(f"Sector: {data['sector']}")
+        # print(f"Industry: {data['industry']}")
+        # print(f"Exchange: {data['exchange']}\n")
 
-        news.news_scrape()
+        #news.news_scrape()
 
         return data
 

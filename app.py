@@ -214,5 +214,78 @@ def graph():
                            is_logged_in=is_logged_in)
 
 
+@app.route("/news", methods=["GET", "POST"])
+def news():
+    is_logged_in = session.get('is_logged_in', False)
+    stock_symbol = None
+    error_message = None
+    articles = []
+    if request.method == "POST":
+        stock_symbol = request.form.get('stock_symbol').strip().upper()
+        search_news = Search(stock_symbol)
+        articles = search_news.news_scrape()
+
+    return render_template('news.html', stock_symbol=stock_symbol, error_message=error_message,
+                           is_logged_in=is_logged_in, articles=articles)
+
+
+@app.route('/search_menu')
+def search_menu():
+    is_logged_in = session.get('is_logged_in', False)
+    return render_template("search_menu.html", is_logged_in=is_logged_in)
+
+@app.route('/basic_menu')
+def basic_menu():
+    is_logged_in = session.get('is_logged_in', False)
+    return render_template("basic_menu.html", error_message=None, is_logged_in=is_logged_in)
+
+@app.route('/advanced_menu')
+def advanced_menu():
+    is_logged_in = session.get('is_logged_in', False)
+    return render_template("advanced_menu.html", sectors=search.sectors, exchanges=search.exchanges, error_message=None,
+                           is_logged_in=is_logged_in)
+
+
+@app.route('/basic_search', methods=['POST'])
+def basic_search():
+    is_logged_in = session.get('is_logged_in', False)
+    try:
+        data = search.nameSearch(request.form['keyword'], request.form['limit'])
+        return render_template("basic_search.html", results=data, is_logged_in=is_logged_in)
+    except:
+        return render_template("basic_menu.html",
+                               error_message="No results match your keyword. Please enter a different keyword.",
+                               is_logged_in=is_logged_in)
+
+
+@app.route('/advanced_search', methods=['POST'])
+def advanced_search():  # put application's code here
+    is_logged_in = session.get('is_logged_in', False)
+    try:
+        data = search.advancedFilter(request.form['sectors'], request.form['exchanges'], request.form['mktmax'],
+                                     request.form['mktmin'], request.form['limit'])
+        return render_template("advanced_search.html", results=data, is_logged_in=is_logged_in)
+    except:
+        return render_template("advanced_menu.html", error_message="No results found. Please try again.",
+                               is_logged_in=is_logged_in)
+
+
+@app.route('/more_info', methods=['POST'])
+def more_info():
+    is_logged_in = session.get('is_logged_in', False)
+    try:
+        info = search.getStockInfo(request.form['info'])
+        return render_template("more_info.html", data=info, is_logged_in=is_logged_in)
+    except:
+        return render_template("more_info.html", data=[], error_message="Stock not found.", is_logged_in=is_logged_in)
+
+
+@app.route('/save_stock', methods=['POST'])
+def save_stock():
+    info = search.getStockInfo(request.form['save'])
+    search.saveStock(info)
+    return "Stock has been saved"
+
+
 if __name__ == '__main__':
     app.run(debug=True)
