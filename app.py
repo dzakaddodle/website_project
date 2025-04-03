@@ -282,9 +282,10 @@ def more_info():
 
 @app.route('/save_stock', methods=['POST'])
 def save_stock():
+    is_logged_in = session.get('is_logged_in', False)
     info = search.getStockInfo(request.form['save'])
     search.saveStock(info)
-    return "Stock has been saved"
+    return render_template("successful_save.html", is_logged_in=is_logged_in)
 
 
 if __name__ == '__main__':
