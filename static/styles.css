@@ -89,6 +89,109 @@ body {
     transition: background-color 0.3s ease;
 }
 
+/* Styling for Stock Info Container */
+/* Stock Info Container */
+.stock-info-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #1C1C27;
+    color: #E0E0E0;
+    border-radius: 10px;
+    width: 80%;
+    box-sizing: border-box;
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #66FCF1;
+}
+
+/* Stock Details Layout */
+.stock-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align items to the left */
+    gap: 20px;
+}
+
+/* Stock Item Styling */
+.stock-item {
+    flex: 1;
+    min-width: 250px;
+    max-width: 48%;
+    margin-bottom: 20px;
+    padding-left: 100px;
+}
+
+.stock-item2 {
+    flex: 1;
+    min-width: 250px;
+    max-width: 30%;
+    margin-bottom: 20px;
+    padding-left: 100px;
+    text-align: left;
+}
+
+.stock-item h2, .stock-item h3 {
+    color: #FFD700;
+}
+
+.stock-item p, .stockitem2 p {
+    color: #B0B3C3;
+    line-height: 1.6;
+}
+
+a {
+    color: #66FCF1;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Positive/Negative Change Styling */
+.positive-change {
+    color: #28a745; 
+}
+
+.negative-change {
+    color: #dc3545; 
+}
+
+/* Action Buttons */
+.action-buttons {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.action-buttons button {
+    background-color: #45A29E;
+    color: #121212;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.action-buttons button:hover {
+    background-color: #66FCF1;
+}
+
+/* Error Message */
+p[style="color: red;"] {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: red;
+}
+
+
 /* Table Styling for Saved Stocks */
 table {
     width: 90%;
