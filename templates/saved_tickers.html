@@ -11,7 +11,8 @@
     {% include 'navbar.html' %}
 
     <div class="header-container">
-        <h1>Your Saved Stocks</h1>
+        <h2>Your Saved Stocks</h2>
+        <h3>View your favourite stocks</h3>
         {% if stocks and stocks|length > 0 %} <!--Only show "Export CSV" button if there is data-->
         <form action="{{ url_for('saved_tickers') }}" method="post">
             <input type="hidden" name="export_stocks" value="1">
