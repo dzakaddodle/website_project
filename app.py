@@ -213,6 +213,21 @@ def graph():
     return render_template("graph.html", plot_url=plot_url, error_message=error_message, stock_symbol=stock_symbol,
                            is_logged_in=is_logged_in)
 
+@app.route("/news", methods=["GET", "POST"])
+def news():
+    is_logged_in = session.get('is_logged_in', False)
+    stock_symbol = None
+    error_message = None
+    articles = []
+    if request.method == "POST":
+        stock_symbol = request.form.get('stock_symbol').strip().upper()
+        search_news = Search(stock_symbol)
+        articles = search_news.news_scrape()
+
+    return render_template('news.html', stock_symbol=stock_symbol, error_message=error_message,
+                           is_logged_in=is_logged_in, articles=articles)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
