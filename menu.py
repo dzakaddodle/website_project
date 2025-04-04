@@ -1,4 +1,4 @@
-from web import Search
+from web_backup import Search
 from saved_tickers import Stocks
 from pandas_api import Graphs
 
