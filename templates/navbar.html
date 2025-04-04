@@ -8,18 +8,20 @@
 </head>
 <body>
     <div class="navbar">
-        <img src="/static/logo_small.png" alt="Logo" class="logo">
-        {% if is_logged_in %}
-            <a href="/">Home 🏠</a>
-            <a href="/search_menu">Search for Stocks 🔍</a>
-            <a href="/saved_tickers">Saved Stocks 💾</a>
-            <a href="news">Get News 📰</a>
-            <a href="/graph">Get Historical Price Graph 📈</a>
-            <a href="/logout" class="right">Logout 👋</a>
-        {% else %}
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-        {% endif %}
+        <div class="navbar-content">
+            <img src="/static/logo_small.png" alt="Logo" class="logo">
+            {% if is_logged_in %}
+                <a href="/">Home 🏠</a>
+                <a href="/search_menu">Search for Stocks 🔍</a>
+                <a href="/saved_tickers">Saved Stocks 💾</a>
+                <a href="news">Get News 📰</a>
+                <a href="/graph">Get Historical Price Graph 📈</a>
+                <a href="/logout" class="right">Logout 👋</a>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
+        </div>
     </div>
 
     <div class="container">

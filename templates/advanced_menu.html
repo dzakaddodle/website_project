@@ -9,27 +9,45 @@
     {% extends 'navbar.html' %}
     {% block content %}
     <form action="{{ url_for('advanced_search') }}" method="POST">
-        <label for="sectors">Sectors:</label>
-        <select id="sectors" name="sectors">
-            <option value="" selected>None</option>
-            {%  for sector in sectors %}
-                <option value="{{ sector }}">{{ sector }}</option>
-            {%  endfor %}
-        </select>
-        <label for="exchanges">Exchanges:</label>
-        <select id="exchanges" name="exchanges">
-            <option value="" selected>None</option>
-            {%  for exchange in exchanges %}
-                <option value="{{ exchange }}">{{ exchange }}</option>
-            {%  endfor %}
-        </select>
-        <label for="mktmin">Minimum Market Cap:</label>
-        <input type="number" id="mktmin" name="mktmin" min="0">
-        <label for="mktmax">Maximum Market Cap:</label>
-        <input type="number" id="mktmax" name="mktmax" min="0">
-        <label for="limit">Limit:</label>
-        <input type="limit" id="limit" name="limit" min="0" max="5">
-        <input type="submit" value="Submit">
+        <table>
+            <tr>
+                <td><label for="sectors">Sectors:</label></td>
+                <td>
+                    <select id="sectors" name="sectors">
+                        <option value="" selected>None</option>
+                        {% for sector in sectors %}
+                            <option value="{{ sector }}">{{ sector }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="exchanges">Exchanges:</label></td>
+                <td>
+                    <select id="exchanges" name="exchanges">
+                        <option value="" selected>None</option>
+                        {% for exchange in exchanges %}
+                            <option value="{{ exchange }}">{{ exchange }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="mktmin">Minimum Market Cap:</label></td>
+                <td><input type="number" id="mktmin" name="mktmin" min="0"></td>
+            </tr>
+            <tr>
+                <td><label for="mktmax">Maximum Market Cap:</label></td>
+                <td><input type="number" id="mktmax" name="mktmax" min="0"></td>
+            </tr>
+            <tr>
+                <td><label for="limit">Limit:</label></td>
+                <td><input type="number" id="limit" name="limit" min="0" max="5"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">Submit</button></td>
+            </tr>
+        </table>
     </form>
     {% if error_message %}
         <p style="color: red;">{{ error_message }}</p>
