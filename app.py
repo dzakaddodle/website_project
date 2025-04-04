@@ -263,14 +263,17 @@ def basic_search():
                                is_logged_in=is_logged_in)
 
 
-@app.route('/advanced_search', methods=['POST'])
+@app.route('/advanced_search', methods=['GET','POST'])
 def advanced_search():  # put application's code here
     is_logged_in = session.get('is_logged_in', False)
     try:
         data = search.advancedFilter(request.form['sectors'], request.form['exchanges'], request.form['mktmax'],
                                      request.form['mktmin'], request.form['limit'])
+        data = [stock for stock in data if stock.get('price') is not None]
+        data = [{**stock, 'sector': 'NA' if stock.get('sector') == '' else stock.get('sector')} for stock in data]
         return render_template("advanced_search.html", results=data, is_logged_in=is_logged_in)
-    except:
+    except Exception as e:
+        print(e)
         return render_template("advanced_menu.html", error_message="No results found. Please try again.",
                                is_logged_in=is_logged_in)
 
