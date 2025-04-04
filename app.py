@@ -192,9 +192,14 @@ def saved_tickers():
 
     # Get saved stocks for display
     stock_list = stock_manager.see_saved_stocks(user_email)
+    stock_change_list = []
+    for stock in stock_list:
+        changes = search.get_stock_change(stock[0])
+        stock_change_list.append(changes)
 
     return render_template("saved_tickers.html",
                            stocks=stock_list,
+                           stock_change_list=stock_change_list,
                            is_logged_in=is_logged_in)
 
 
