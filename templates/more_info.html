@@ -28,8 +28,27 @@
                 <p><strong>Beta:</strong> {{ data['beta'] }}</p>
                 <p><strong>Last Dividend:</strong> ${{ data['lastDividend'] }}</p>
                 <p><strong>Range:</strong> {{ data['range'] }}</p>
-                <p class="{{ 'positive-change' if data['change'] >= 0 else 'negative-change' }}"><strong>Change:</strong> {{ data['change'] }}</p>
-                <p class="{{ 'positive-change' if data['changePercentage'] >= 0 else 'negative-change' }}"><strong>Change %:</strong> {{ data['changePercentage'] }}%</p>
+
+                <!-- Change: Show "NA" if 'change' doesn't exist in data -->
+                <p class="{% if 'change' in data %}{{ 'positive-change' if data['change'] >= 0 else 'negative-change' }}{% else %}no-change{% endif %}">
+                    <strong>Change:</strong>
+                    {% if 'change' in data %}
+                        {{ data['change'] }}
+                    {% else %}
+                        NA
+                    {% endif %}
+                </p>
+
+                <!-- Change Percentage: Show "NA" if 'changePercentage' doesn't exist in data -->
+                <p class="{% if 'changePercentage' in data %}{{ 'positive-change' if data['changePercentage'] >= 0 else 'negative-change' }}{% else %}no-change{% endif %}">
+                    <strong>Change %:</strong>
+                    {% if 'changePercentage' in data %}
+                        {{ data['changePercentage'] }}%
+                    {% else %}
+                        NA
+                    {% endif %}
+                </p>
+
                 <p><strong>Volume:</strong> {{ data['volume'] }}</p>
                 <p><strong>Average Volume:</strong> {{ data['averageVolume'] }}</p>
                 <p><strong>Currency:</strong> {{ data['currency'] }}</p>
