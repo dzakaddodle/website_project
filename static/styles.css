@@ -11,9 +11,22 @@ body {
 /* Navbar Styling */
 .navbar {
     background-color: #1F2833; /* Dark navy-blue */
-    padding: 15px 5px;
+    padding: 5px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    text-align: center;
+    height: 35px;
+    display: flex;  /* Enable Flexbox */
+    align-items: center;  /* Vertically center the navbar items */
+    justify-content: center;  /* Center all the content horizontally */
+}
+
+.navbar .navbar-content {
+    display: flex;  /* Enable Flexbox on the content wrapper */
+    align-items: center;  /* Vertically center the logo and links */
+}
+
+img.logo {
+    height: 30px;  /* Set the height of the logo */
+    margin-right: 10px;  /* Space between the logo and the first link */
 }
 
 .navbar a {
@@ -23,12 +36,15 @@ body {
     margin: 0 8px;
     transition: 0.3s;
     font-weight: bold;
+    display: flex;
+    align-items: center;
 }
 
 .navbar a:hover {
-    background-color: #45A29E; /* Soft teal accent */
-    color: #FFD700; /* Gold for contrast */
+    background-color: #45A29E;
+    color: #ffd133;
     border-radius: 5px;
+    text-decoration: none;
 }
 
 /* Container for Page Content */
@@ -68,21 +84,21 @@ body {
 .action-buttons {
     display: flex;
     justify-content: center;
-    gap: 10px; 
-    align-items: center; 
+    gap: 10px;
+    align-items: center;
 }
 
 .action-buttons form {
     display: inline;
-    margin: 0; 
+    margin: 0;
 }
 
 .action-buttons button {
-    padding: 8px 15px; 
+    padding: 8px 15px;
     border-radius: 5px;
     font-size: 14px;
     font-weight: bold;
-    background-color: #45A29E; 
+    background-color: #45A29E;
     color: #121212;
     cursor: pointer;
     border: none;
@@ -105,7 +121,7 @@ body {
 h1 {
     text-align: center;
     font-size: 2.5rem;
-    color: #66FCF1;
+    color: #a0aef0;
 }
 
 /* Stock Details Layout */
@@ -135,7 +151,7 @@ h1 {
 }
 
 .stock-item h2, .stock-item h3 {
-    color: #FFD700;
+    color: #ffd133;
 }
 
 .stock-item p, .stockitem2 p {
@@ -154,17 +170,17 @@ a:hover {
 
 /* Positive/Negative Change Styling */
 .positive-change {
-    color: #28a745; 
+    color: #28a745;
 }
 
 .negative-change {
-    color: #dc3545; 
+    color: #dc3545;
 }
 
 /* Action Buttons */
 .action-buttons {
     text-align: center;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
 }
 
 .action-buttons button {
@@ -235,6 +251,15 @@ form {
     margin-left: 30%;
 }
 
+
+#keyword {
+    width: 60%; /* You can adjust the percentage as needed */
+    padding: 1px;
+    border: 1px solid #ccc;
+    height: 16px;
+    border-radius: 0;
+}
+
 input[type="text"], input[type="email"], input[type="password"] {
     width: 50%;
     padding: 8px;
@@ -265,7 +290,7 @@ ul {
     padding: 10px;
     background-color: #282C35;
     border-radius: 5px;
-    color: #FFD700;
+    color: #ffd133;
     font-weight: bold;
 }
 
@@ -496,7 +521,7 @@ ul {
 
 .news-item a {
     text-decoration: none;
-    color: inherit;
+    color: #ffd133;
 }
 
 .news-item a:hover {
