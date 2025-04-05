@@ -19,7 +19,7 @@ class Search:
             table = self.soup.find('table', class_='fullview-news-outer')
             rows = table.find_all('tr')
 
-            for row in rows[:20]:
+            for row in rows[:50]:
                 cols = row.find_all('td')
                 if len(cols) < 2:
                     continue

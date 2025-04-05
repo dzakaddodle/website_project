@@ -32,7 +32,9 @@
                         </ul>
                     </div>
                 {% else %}
-                    <p>No news found for {{ stock_symbol.upper() }}</p>
+                    <div class = "error-message">
+                        <p style="color: red;">No news found for {{ stock_symbol.upper() }}</p>
+                    </div>
                 {% endif %}
             {% endif %}
         </div>
