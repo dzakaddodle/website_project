@@ -222,6 +222,9 @@ def graph():
 @app.route("/news", methods=["GET", "POST"])
 def news():
     is_logged_in = session.get('is_logged_in', False)
+    if not is_logged_in:
+        flash("Please log in to access saved tickers", 'error')
+        return redirect(url_for('login'))
     stock_symbol = None
     error_message = None
     articles = []
@@ -229,9 +232,11 @@ def news():
         stock_symbol = request.form.get('stock_symbol').strip().upper()
         search_news = Search(stock_symbol)
         articles = search_news.news_scrape()
+    sentiments = [x['sentiment'] for x in articles]
+    overall_sentiment = sum(sentiments)/len(sentiments)
 
     return render_template('news.html', stock_symbol=stock_symbol, error_message=error_message,
-                           is_logged_in=is_logged_in, articles=articles)
+                           is_logged_in=is_logged_in, articles=articles, sentiment=round(overall_sentiment,2))
 
 
 @app.route('/search_menu')
