@@ -192,20 +192,24 @@ def saved_tickers():
 
     # Get saved stocks for display
     stock_list = stock_manager.see_saved_stocks(user_email)
-    stock_change_list = []
+    stock_list_new = []
     for stock in stock_list:
+        stock_new = list(stock)
         changes = search.get_stock_change(stock[0])
-        stock_change_list.append(changes)
+        stock_new.extend(changes)  # Extend stock_new in-place
+        stock_list_new.append(stock_new)  # Append the modified stock_new
 
     return render_template("saved_tickers.html",
-                           stocks=stock_list,
-                           stock_change_list=stock_change_list,
+                           stocks=stock_list_new,
                            is_logged_in=is_logged_in)
 
 
 @app.route("/graph", methods=["GET", "POST"])
 def graph():
     is_logged_in = session.get('is_logged_in', False)
+    if not is_logged_in:
+        flash("Please log in to access saved tickers", 'error')
+        return redirect(url_for('login'))
     stock_symbol = None
     plot_url = None
     error_message = None
@@ -247,16 +251,27 @@ def news():
 @app.route('/search_menu')
 def search_menu():
     is_logged_in = session.get('is_logged_in', False)
+    if not is_logged_in:
+        flash("Please log in to access saved tickers", 'error')
+        return redirect(url_for('login'))
     return render_template("search_menu.html", is_logged_in=is_logged_in)
+
 
 @app.route('/basic_menu')
 def basic_menu():
     is_logged_in = session.get('is_logged_in', False)
+    if not is_logged_in:
+        flash("Please log in to access saved tickers", 'error')
+        return redirect(url_for('login'))
     return render_template("basic_menu.html", error_message=None, is_logged_in=is_logged_in)
+
 
 @app.route('/advanced_menu')
 def advanced_menu():
     is_logged_in = session.get('is_logged_in', False)
+    if not is_logged_in:
+        flash("Please log in to access saved tickers", 'error')
+        return redirect(url_for('login'))
     return render_template("advanced_menu.html", sectors=search.sectors, exchanges=search.exchanges, error_message=None,
                            is_logged_in=is_logged_in)
 
@@ -280,12 +295,14 @@ def advanced_search():  # put application's code here
         data = search.advancedFilter(request.form['sectors'], request.form['exchanges'], request.form['mktmax'],
                                      request.form['mktmin'], request.form['limit'])
         data = [stock for stock in data if stock.get('price') is not None]
+        print([x['sector'] for x in data])
         data = [{**stock, 'sector': 'NA' if stock.get('sector') == '' else stock.get('sector')} for stock in data]
         return render_template("advanced_search.html", results=data, is_logged_in=is_logged_in)
     except Exception as e:
         print(e)
         return render_template("advanced_menu.html", error_message="No results found. Please try again.",
                                is_logged_in=is_logged_in)
+
 
 
 @app.route('/more_info', methods=['POST'])

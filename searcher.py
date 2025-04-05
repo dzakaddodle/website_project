@@ -265,7 +265,6 @@ class StockMarket:
 
     def get_stock_change(self, ticker):
         stock = self.getStockInfo(ticker)
-        stock_changes = {ticker: [stock['change'], stock['changePercentage']]}
+        stock_changes = [stock['change'], stock['changePercentage']]
 
         return stock_changes
-
