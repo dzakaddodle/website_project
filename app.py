@@ -228,12 +228,17 @@ def news():
     stock_symbol = None
     error_message = None
     articles = []
+    overall_sentiment =0
     if request.method == "POST":
         stock_symbol = request.form.get('stock_symbol').strip().upper()
         search_news = Search(stock_symbol)
         articles = search_news.news_scrape()
-    sentiments = [x['sentiment'] for x in articles]
-    overall_sentiment = sum(sentiments)/len(sentiments)
+        print(articles)
+        if articles:
+            sentiments = [x['sentiment'] for x in articles]
+            overall_sentiment = sum(sentiments)/len(sentiments)
+        else:
+            pass
 
     return render_template('news.html', stock_symbol=stock_symbol, error_message=error_message,
                            is_logged_in=is_logged_in, articles=articles, sentiment=round(overall_sentiment,2))
