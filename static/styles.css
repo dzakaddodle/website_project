@@ -539,6 +539,85 @@ ul {
     margin-left: 10px;
 }
 
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+.sentiment-bar-container {
+    width: 60%; /* Adjust as needed */
+    height: 45px;
+    /*border: 1px solid #ccc;*/
+    position: relative;
+    margin: 30px auto;
+    border-radius: 5px;
+    overflow: hidden; /* Clip the colored bar */
+}
+
+.sentiment-bar-colored {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right,
+        red 0%,
+        lightcoral 25%,
+        lightgray 50%,
+        lightgreen 75%,
+        green 100%
+    );
+}
+
+.sentiment-indicator {
+    width: 3px;
+    height: 50px;
+    background-color: black;
+    position: absolute;
+    top: -5px; /* Adjust to position the indicator correctly */
+    left: 50%; /* Initial center position */
+    transform: translateX(-1px); /* Center the line */
+}
+
+.sentiment-bar-container .sentiment-labels { /* More specific selector */
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px 0;
+    font-size: 0.8em;
+    color: #555;
+    position: relative; /* Needed for absolute positioning of spans within */
+}
+
+.sentiment-bar-container .sentiment-labels span { /* More specific selector */
+    position: absolute; /* To allow precise positioning */
+    top: 25px; /* Adjust vertical position as needed */
+    transform: translateX(-50%); /* Center the text */
+    font-size: 0.9em;
+}
+
+.sentiment-bar-container .sentiment-labels span:first-child {
+    left: 0%;
+    transform: translateX(0%); /* Align left edge */
+}
+
+.sentiment-bar-container .sentiment-labels span:nth-child(2) {
+    left: 25%;
+}
+
+.sentiment-bar-container .sentiment-labels span:nth-child(3) {
+    left: 50%;
+}
+
+.sentiment-bar-container .sentiment-labels span:nth-child(4) {
+    left: 75%;
+}
+
+.sentiment-bar-container .sentiment-labels span:last-child {
+    left: 100%;
+    transform: translateX(-100%); /* Align right edge */
+}
+
+.sentiment {
+    padding-top: 30px;
+}
+
 /* search features specific css */
 .search-form {
     margin-top: 30px;
