@@ -14,7 +14,7 @@
                 <td><label for="sectors">Sectors:</label></td>
                 <td>
                     <select id="sectors" name="sectors">
-                        <option value="" selected>None</option>
+                        <option value="" selected>All</option>
                         {% for sector in sectors %}
                             <option value="{{ sector }}">{{ sector }}</option>
                         {% endfor %}
@@ -25,7 +25,7 @@
                 <td><label for="exchanges">Exchanges:</label></td>
                 <td>
                     <select id="exchanges" name="exchanges">
-                        <option value="" selected>All</option>
+                        <option value="" selected>None</option>
                         {% for exchange in exchanges %}
                             <option value="{{ exchange }}">{{ exchange }}</option>
                         {% endfor %}

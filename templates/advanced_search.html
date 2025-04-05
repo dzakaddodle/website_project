@@ -26,7 +26,7 @@
             {% for stock in results %}
             <tr>
                 <td>{{ stock['symbol'] }}</td>
-                <td>{{ stock['name'] }}</td>
+                <td>{{ stock['companyName'] }}</td>
                 <td>{{ stock['marketCap'] }}</td>
                 <td>{{ stock['sector'] }}</td>
                 <td>{{ stock['price'] }}</td>
@@ -36,7 +36,7 @@
                     <form action="{{ url_for('more_info') }}" method="POST" style="display: inline;">
                         <button type="submit" name="info" value="{{ stock['symbol'] }}">More Info</button>
                     </form>
-                    <form action="{{ url_for('save_stock') }}" method="POST" style="display: inline;">
+                    <form action="{{ url_for('save_stock') }}" method="POST" style="display: inline;" name="save-stock-form">
                         <button type="submit" name="save" value="{{ stock['symbol'] }}">Save Stock</button>
                     </form>
                 </td>
