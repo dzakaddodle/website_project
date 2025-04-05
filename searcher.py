@@ -15,7 +15,7 @@ class StockMarket:
         # list of sectors in the stock market
         self.sectors = [
             "Technology",
-            "Health Care",
+            "Healthcare",
             "Financials",
             "Consumer Discretionary",
             "Consumer Staples",
