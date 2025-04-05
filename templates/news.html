@@ -31,10 +31,41 @@
                             {% endfor %}
                         </ul>
                     </div>
-                {% else %}
-                    <div class = "error-message">
-                        <p style="color: red;">No news found for {{ stock_symbol.upper() }}</p>
+                    <h3 class="sentiment">Overall Sentiment: {{ sentiment }}</h3>
+                    <div class="sentiment-bar-container">
+                        <div class="sentiment-bar-colored"></div>
+                        <div id="sentimentIndicator" class="sentiment-indicator"></div>
+                        <div class="sentiment-labels">
+                            <span>Strong Negative</span>
+                            <span>Negative</span>
+                            <span>Neutral</span>
+                            <span>Positive</span>
+                            <span>Strong Positive</span>
+                        </div>
+                        <div id="sentimentValue" style="text-align: center; margin-top: 10px;"></div>
                     </div>
+
+                    <script>
+                        function updateSentimentIndicator(sentiment) {
+                            const indicator = document.getElementById('sentimentIndicator');
+                            const container = document.querySelector('.sentiment-bar-container');
+                            const sentimentValueDisplay = document.getElementById('sentimentValue');
+                            const containerWidth = container.offsetWidth;
+
+                            // Map sentiment (-1 to 1) to a position (0% to 100% of container width)
+                            const positionPercentage = ((sentiment + 1) / 2) * 100;
+                            const indicatorPosition = (positionPercentage / 100) * containerWidth;
+
+                            indicator.style.left = `${indicatorPosition}px`;
+                            sentimentValueDisplay.textContent = `Sentiment Score: ${sentiment.toFixed(4)}`; // Display the score
+                        }
+
+                        // Get the overall sentiment from the Jinja template
+                        const overallSentiment = parseFloat("{{ sentiment }}"); // Enclose in quotes and parse as float
+                        updateSentimentIndicator(overallSentiment);
+                    </script>
+                {% else %}
+                    <p>No news found for {{ stock_symbol.upper() }}</p>
                 {% endif %}
             {% endif %}
         </div>
