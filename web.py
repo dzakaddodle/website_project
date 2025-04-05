@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
 class Search:
@@ -19,7 +20,7 @@ class Search:
             table = self.soup.find('table', class_='fullview-news-outer')
             rows = table.find_all('tr')
 
-            for row in rows[:50]:
+            for row in rows[:20]:
                 cols = row.find_all('td')
                 if len(cols) < 2:
                     continue
@@ -36,10 +37,17 @@ class Search:
                         'title': title,
                         'url': url,
                         'timestamp': timestamp,
-                        'ticker': self.ticker
+                        'ticker': self.ticker,
+                        'sentiment': self.sentiment(title)
                     })
 
         except Exception as e:
             print(f"Error scraping news for {self.ticker}: {e}")
 
         return news_data
+
+    def sentiment(self, title):
+        analyzer = SentimentIntensityAnalyzer()
+        result = analyzer.polarity_scores(title)
+        return result['compound']
+
