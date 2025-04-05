@@ -539,11 +539,6 @@ ul {
     margin-left: 10px;
 }
 
-body {
-    font-family: sans-serif;
-    margin: 20px;
-}
-
 .sentiment-bar-container {
     width: 60%; /* Adjust as needed */
     height: 45px;
